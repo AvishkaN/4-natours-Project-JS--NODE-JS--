@@ -4,15 +4,19 @@ const Controllers = require('../controller/tourController');
  
 
 // route function
-const tourRouter=express.Router();
+const router=express.Router();
+
+//condiitonal check middlewere 
+router.param('id',Controllers.checkId)
+
 
 // --> tours
-tourRouter
+router
     .route('/')
     .get(Controllers.getAllTours)
-    .post(Controllers.createTour)
+    .post(Controllers.checkBody,Controllers.createTour)
 
-tourRouter
+router
     .route('/:id')
     .get(Controllers.getTour)
     .patch(Controllers.updateTour)
@@ -20,6 +24,6 @@ tourRouter
 
 
 
-module.exports=tourRouter;
+module.exports=router;
 
 

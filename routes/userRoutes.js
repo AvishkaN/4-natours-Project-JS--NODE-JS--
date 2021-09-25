@@ -2,22 +2,21 @@ const express =require('express');
 const Controllers = require('../controller/userController');
 
 // route function
-const userRouter=express.Router();
+const router=express.Router();
 
 
-
-userRouter
+router
     .route('/')
     .get(Controllers.getAllUsers)
     .post(Controllers.createUser)
 
 // --> users
-userRouter
+router
     .route('/')
     .get(Controllers.getAllUsers)
     .post(Controllers.createUser)
 
-userRouter
+router
     .route('/:id')
     .get(Controllers.getUsers)
     .patch(Controllers.updateUsers)
@@ -26,6 +25,6 @@ userRouter
 
 
 
-module.exports=userRouter;
+module.exports=router;
 
 
