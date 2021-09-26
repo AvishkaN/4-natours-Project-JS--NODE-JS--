@@ -14,7 +14,7 @@ const router=express.Router();
 router
     .route('/')
     .get(Controllers.getAllTours)
-    .post(Controllers.checkBody,Controllers.createTour)
+    .post(Controllers.createTour)
 
 router
     .route('/:id')

@@ -1,16 +1,16 @@
 const Tour =require('../models/tourModel');
 
 //  middlewere
-exports.checkBody=(req,res,next)=>{
+// exports.checkBody=(req,res,next)=>{
 
-    if(!req.body.name || !req.body.price){
-        return res.status(404).json({
-            status:'fail',
-            message:'Missing name or place'
-        });
-    }
-    next();
-};
+//     if(!req.body.name || !req.body.price){
+//         return res.status(404).json({
+//             status:'fail',
+//             message:'Missing name or place'
+//         });
+//     }
+//     next();
+// };
 
 
 
@@ -21,10 +21,7 @@ exports.checkBody=(req,res,next)=>{
 exports.getAllTours=((req,res)=>{
     res.status(200).json({
         status:'success',
-        // results:tours.length,
-        // data:{
-        //     tours:tours
-        // }
+
     });
 
 })
@@ -43,14 +40,26 @@ exports. getTour=((req,res)=>{
 
 })
 
-exports.createTour=(req,res)=>{
-    res.status(200).json({
-        status:'success',
-        results:tours.length,
-        // data:{
-        //     tours:tours
-        // }
-    });
+exports.createTour=async (req,res)=>{
+ 
+    try{
+        const newtour= await Tour.create(req.body);
+        console.log(newtour);
+        
+        res.status(200).json({
+            status:'success',  
+            data:{     
+                tour:newtour 
+            }
+        }); 
+    }catch(err){
+        console.log(newtour);
+        res.status(404).json({
+            status:'failed',
+            message: 'Invalid data sent !'
+            // message:'Invalid data sent !'
+        }); 
+    }
 }
 
 exports.updateTour=(req,res)=>{
