@@ -7,7 +7,7 @@ const Controllers = require('../controller/tourController');
 const router=express.Router();
 
 //condiitonal check middlewere 
-router.param('id',Controllers.checkId)
+    // router.param('id',Controllers.checkId) // --> param middle were
 
 
 // --> tours
