@@ -1,7 +1,7 @@
 const fs =require('fs');
 
 let tours=JSON.parse(fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`));
-
+  
 exports.checkBody=(req,res,next)=>{
 
     if(!req.body.name || !req.body.price){
