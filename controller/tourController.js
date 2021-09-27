@@ -66,22 +66,18 @@ exports. getTour=(async(req,res)=>{
 });
 
 exports.createTour=async (req,res)=>{
- 
-    try{
+ try{
         const newtour= await Tour.create(req.body);
-        console.log(newtour);
-        
         res.status(200).json({
             status:'success',  
             data:{     
                 tour:newtour 
             }
         }); 
-    }catch(err){
-        console.log(newtour);
+}catch(err){
         res.status(404).json({
             status:'failed',
-            message: 'Invalid data sent !'
+            message: '@#####'   
             // message:'Invalid data sent !'
         }); 
     }
