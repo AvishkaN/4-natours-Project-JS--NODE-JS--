@@ -34,7 +34,7 @@ exports.getAllTours= (async(req,res) =>{
     }
     catch(err){
         res.status(404).json({
-            status:'fail',
+            status:'failed',
             message:err,
         });
         
@@ -59,7 +59,7 @@ exports. getTour=(async(req,res)=>{
     }
     catch(err){
         res.status(404).json({
-            status:'fail',
+            status:'failed',
             message:err,
         });
     }
@@ -115,31 +115,25 @@ exports.updateTour=async (req,res)=>{
 } 
 
 
-// exports.deleteTour=async (req,res)=>{
-        
-//         console.log(1);
-//         const Id=req.params.id;  
-//         // console.log(Id);
-        
-//         try{
-//             await Tour.findByIdAndDelete(req.params.id);
-            
-//             // res.status(200).json({
-//                 //     status:'success',
-//                 //     data:{
-//                     //         tour:tour,
-//                     //     }
+exports.deleteTour=async (req,res)=>{
+        try{
+            await Tour.findByIdAndDelete(req.params.id);
+            res.status(200).json({
+                    status:'success',
+                    data:{
+                            tour:tour,
+                        }
                     
-//                     // });
-//         }
-//             catch(err){
-//                 // res.status(404).json({
-//                     //     status:'fail',
-//                     //     message:err,
-//                     // });
+                    });
+        }
+            catch(err){
+                res.status(404).json({
+                        status:'fail',
+                        message:err,
+                    });
                     
-//             }
-// };
+            }
+};
                 
                 
 

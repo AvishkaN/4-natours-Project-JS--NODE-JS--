@@ -10,7 +10,9 @@ const router=express.Router();
     // router.param('id',Controllers.checkId) // --> param middle were
 
 
-// --> tours
+
+
+
 router      
     .route('/')
     .get(Controllers.getAllTours)
