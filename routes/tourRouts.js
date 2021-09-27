@@ -11,7 +11,7 @@ const router=express.Router();
 
 
 // --> tours
-router
+router      
     .route('/')
     .get(Controllers.getAllTours)
     .post(Controllers.createTour)
