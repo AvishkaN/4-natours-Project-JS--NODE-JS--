@@ -19,10 +19,30 @@ const Tour =require('../models/tourModel');
 // route controllers  
     // --> tours
 exports.getAllTours= (async(req,res) =>{
-
     try{
-        const tours=await Tour.find();
+        // filter  quaring  METHOD  1
+        // const tours=await Tour.find(req.query);
+        
+        // filter  quaring  METHOD  2
+        // const tours=await Tour.find({duration:5,difficulty:"easy"})
 
+        // // filter  quaring  METHOD  3
+        // const tours=await Tour.find()
+        //                                     .where('duration')
+        //                                     .equals(5)
+        //                                      .where('difficulty')
+        //                                     .equals('easy')
+
+        // BUILD the query
+        const quaryObject={...req.query};
+        const excludeItems=['page','sort','limit','fields']
+        excludeItems.forEach(item=>delete  quaryObject[item])
+        const query=await Tour.find(quaryObject);
+
+        // exicute the query
+        const tours=await query;
+
+        // SEND RESPONSE
         res.status(200).json({
             status:'success',
             results:1,
@@ -44,8 +64,8 @@ exports.getAllTours= (async(req,res) =>{
 
 exports. getTour=(async(req,res)=>{
     const Id=req.params.id;
-
     try{
+
         const tour=await Tour.findById(Id);
 
         res.status(200).json({

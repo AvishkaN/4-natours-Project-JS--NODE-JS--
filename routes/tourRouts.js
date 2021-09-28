@@ -25,7 +25,6 @@ router
     .delete(Controllers.deleteTour)
 
 
-
 module.exports=router;
 
 
