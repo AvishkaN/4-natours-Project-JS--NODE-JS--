@@ -13,6 +13,7 @@ const router=express.Router();
 
 
 router.route('/top-5-cheap').get(Controllers.aliasTopTours,Controllers.getAllTours);
+router.route('/tour-stats').get(Controllers.getTourStats);
 
 router      
     .route('/')
