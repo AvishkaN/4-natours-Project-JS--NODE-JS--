@@ -4,7 +4,7 @@ const validator = require("validator");
 
 // SCHEMA
 const tourSchema=new mongoose.Schema({
-    name:{ 
+    name:{  
         type:String,
         required:[true,'A tour must have a name'],
         unique:true,
