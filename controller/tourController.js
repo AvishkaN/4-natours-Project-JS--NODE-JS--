@@ -52,7 +52,7 @@ exports. getTour=(async(req,res)=>{
 
         res.status(200).json({
             status:'success',
-            results:1,
+            results:tour.length,
             data:{
                 tour:tour,
             }
@@ -79,7 +79,7 @@ exports.createTour=async (req,res)=>{
 }catch(err){
         res.status(404).json({
             status:'failed',
-            message: '@#####'   
+            message: err.message,  
             // message:'Invalid data sent !'
         }); 
     }
@@ -135,6 +135,7 @@ exports.deleteTour=async (req,res)=>{
 exports.getTourStats=async (req,res)=>{ // http://localhost:8000/api/v1/tours/tour-stats
         try{
             const stats=await Tour.aggregate([ 
+             
                 {
                     $match:{ratingsAverage:{ $gte:4.5 }}
                 },

@@ -16,7 +16,6 @@ class APIFeatures{
         quarySTR=quarySTR.replace(/\b(lt|gt|lte|gte)\b/g,match=>`$${match}`)
         
         this.query.find(JSON.parse(quarySTR));
-        console.log(this)
         return this;
     }
 
