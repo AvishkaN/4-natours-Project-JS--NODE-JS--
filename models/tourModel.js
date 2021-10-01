@@ -95,9 +95,9 @@ const tourSchema=new mongoose.Schema({
 });
 
 // virtual proparties
-tourSchema.virtual('durationWeeks').get(function(){
-    return this.duration/7
-});
+// tourSchema.virtual('durationWeeks').get(function(){
+//     return this.duration/7
+// });
 // mongoose  miidleweres
 // tourSchema.pre('save',function(next){
 //     this.slug=slugify(this.name,{lower:true})

@@ -32,7 +32,7 @@ class APIFeatures{
     fieldLimiting(){ // http://localhost:8000/api/v1/tours?fields=name,maxGroupSize
         // 3) FILED LIMITING
         if(this.queryString.fields){
-            const fields=this.queryString.fields.split(',').join(' ');
+            const fields=this.queryString.fields.split(',').join(' '); 
             this.query=this.query.select(fields)
         }else{
             this.query=this.query.select('-__v')
