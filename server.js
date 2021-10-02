@@ -1,6 +1,10 @@
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+process.on('uncaughtException',err=>{
+    console.log('friking eror');
+    process.exit(1);
+});
 
 dotenv.config({path:'./config.env'});
 
@@ -19,11 +23,12 @@ mongoose.connect(DB,{
     useCreateIndex:true,
     useFindAndModify:false
 }).then(()=>{
-    console.log(`db connection successfull !`);
+    // console.log( 'db connection successfull !'); //  Normal Way
+    console.log('\x1b[36m%s\x1b[0m', 'db connection successfull !');
 });
+     
 
-
-
+// console.log(x);
 
 // const testTour=new Tour({
 //     name:'The hello world',
@@ -44,9 +49,20 @@ mongoose.connect(DB,{
 //         console.log(`@@ERRROR 💣  ${err}`);
 //     })   
  
-//Server
+//Server 
 const port=process.env.PORT || 8000;
-app.listen(port,()=>{
+const server=app.listen(port,()=>{
     console.log('App running on port ');
 });
  
+process.on('unhandledRejection',err=>{
+
+    console.log(1);
+    console.log(err.name);
+    console.log(` !!!!!!! unhandledRejection`);
+
+    server.close(()=>{
+        process.exit(1);
+    });
+
+});
