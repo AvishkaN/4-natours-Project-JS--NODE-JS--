@@ -43,5 +43,5 @@ app.all('*',(req,res,next)=>{
 // globle error handling
 app.use(globleErrorHandler);
 
-
+ 
 module.exports =app;
