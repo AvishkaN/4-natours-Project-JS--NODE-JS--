@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
 process.on('uncaughtException',err=>{
-    console.log('friking eror');
+    console.log(err);
     process.exit(1);
 });
 
