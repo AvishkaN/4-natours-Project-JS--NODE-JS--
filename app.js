@@ -13,7 +13,6 @@ app.use(express.json());
  
 // Middleweres
 if(process.env.NODE_ENV==='development'){
-    console.log(`development`);
     app.use(morgan('dev'));
 }
 // app.use((req,res,next)=>{

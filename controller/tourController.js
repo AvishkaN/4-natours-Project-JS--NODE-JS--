@@ -134,6 +134,10 @@ exports.updateTour=catchAsync(async (req,res,next)=>{
 
 
 exports.deleteTour=catchAsync(async (req,res,next)=>{
+    console.log(req.params.id);
+    const tour=await Tour.findById(req.params.id);
+
+    // console.log(Tour.find());
             await Tour.findByIdAndDelete(req.params.id);
 
 
