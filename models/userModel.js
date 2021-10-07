@@ -45,6 +45,11 @@ const UserSchema=new mongoose.Schema({
         enum:['admin','user','guide','lead-guide'],
         default:'user'
     },
+    active:{
+        type:Boolean,
+        default:true,
+        select:false,
+    }
 });
 
 // MIDDLEWERES for events
@@ -64,6 +69,12 @@ UserSchema.pre('save',function(next){
     if(!this.isModified('password') || this.isNew) return next();
     this.passwordChanedAt=Date.now()-1000;
     next();
+});
+
+UserSchema.pre(/^find/,function(next){
+    // this points to the current query
+   this.find({active:{$ne:false}});
+   next();
 });
 
 // INSTANT METHODS

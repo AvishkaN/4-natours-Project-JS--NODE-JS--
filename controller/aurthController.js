@@ -5,6 +5,9 @@ const User=require('../models/userModel');
 const AppError = require('../utils/appError');
 const sendEmail = require('../utils/email');
 
+
+
+
 const signToken=(id)=>{
     const token=jwt.sign(
         {id:id},
@@ -15,6 +18,32 @@ const signToken=(id)=>{
 
     return  token;
 };
+
+const createSendToken=(user,statusCode,res)=>{
+    // create token
+    const token=signToken(user._id);
+
+    // cookie options
+    const cookieOptions={
+        expires:new Date(Date.now()+process.env.JWT_COOKIE_EXPIRES_IN*24*60*60*100),
+        httpOnly:true,
+    };
+
+    //  switch cookies secuirity
+    if(process.env.NODE_ENV==='production') cookieOptions.secure=true;
+    //  set ip cookies
+    res.cookie('jwt',token,cookieOptions);
+
+    // send response
+    res.status(statusCode).json({
+        status:'success',
+        token,
+        data:{
+            user
+        }
+    });
+};
+
 
 exports.signUp=CatchAsync(async(req,res,next)=>{
     console.log(req.body.password);
@@ -30,15 +59,9 @@ exports.signUp=CatchAsync(async(req,res,next)=>{
     });
     
 
-    const token=signToken(newUser._id);
 
-    res.status(200).json({
-            status:'succes',
-            token:token,
-            data:{
-                user:newUser
-            }
-        });
+     createSendToken(newUser,200,res);
+
 });
 exports.login=CatchAsync(async(req,res,next)=>{
     
@@ -57,16 +80,9 @@ exports.login=CatchAsync(async(req,res,next)=>{
         return next(new AppError('Invalid user name or password',401));
     };
 
-    // creat token
-    const token=signToken(user._id);
 
-    //  send response 
-    res.status(200).json({
-            status:'succes',
-            token:token,
-            user:user,
-           
-        });
+        createSendToken(user,200,res);
+
 });
 
 
@@ -141,6 +157,7 @@ exports.forgotPassword=catchAsync(async(req,res,next)=>{
             status:'success',
             message:'Token sent to email'
         });
+
     }catch(err){
         user.passwordResetToken=undefined;
         user.passwordResetExpires=undefined;
@@ -176,12 +193,8 @@ exports.resetPassword=catchAsync(async(req,res,next)=>{
         await user.save();
 
     // 4) log the user in ,send jwt
-    const token=signToken(user._id);
+    createSendToken(user,200,res);
 
-    res.status(200).json({
-        status:'success',
-        token
-    });
 });
 
 exports.updatePassword=catchAsync(async(req,res,next)=>{
@@ -197,12 +210,10 @@ exports.updatePassword=catchAsync(async(req,res,next)=>{
     user.passwordConfirm=req.body.ConfirmPassword;
     await user.save();
     // 4 ) update and login 
-    const token=signToken(user._id);
-
-    res.status(200).json({
-        status:'success',
-        token
-    });
+    createSendToken(user,200,res);
 
 });
+
+
+
 

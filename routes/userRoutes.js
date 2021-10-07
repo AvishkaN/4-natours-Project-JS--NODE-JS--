@@ -11,6 +11,8 @@ router.post('/signup',authController.signUp);
 router.post('/resetPassword/:token',authController.resetPassword);
 router.post('/forgotPassword',authController.forgotPassword);
 router.post('/updateMyPassword',authController.protect,authController.updatePassword);
+router.post('/updateuserdata',authController.protect,Controllers.updateUserData);
+router.delete('/deleateme',authController.protect,Controllers.deleteUser);
 
 router
     .route('/')
