@@ -8,10 +8,11 @@ const router=express.Router();
 router.post('/login',authController.login);
 router.post('/signup',authController.signUp);
 
-router.post('/resetPassword/:token',authController.resetPassword);
+router.patch('/resetPassword/:token',authController.resetPassword);
+router.patch('/updateMyPassword',authController.protect,authController.updatePassword);
+router.patch('/updateuserdata',authController.protect,Controllers.updateUserData);
+
 router.post('/forgotPassword',authController.forgotPassword);
-router.post('/updateMyPassword',authController.protect,authController.updatePassword);
-router.post('/updateuserdata',authController.protect,Controllers.updateUserData);
 router.delete('/deleateme',authController.protect,Controllers.deleteUser);
 
 router
