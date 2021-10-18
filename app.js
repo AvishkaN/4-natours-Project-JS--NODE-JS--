@@ -1,8 +1,12 @@
 const express =require('express');
 const morgan =require('morgan');
 const globleErrorHandler = require('./controller/errorController');
+
 const tourRouter = require('./routes/tourRouts');
 const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reviewrouter');
+
+
 const AppError = require('./utils/appError');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
@@ -59,6 +63,7 @@ app.use(express.static(`${__dirname}/public`));
 // ROTES
 app.use('/api/v1/tours',tourRouter);
 app.use('/api/v1/users',userRouter);
+app.use('/api/v1/reviews',reviewRouter);
 
 
 app.all('*',(req,res,next)=>{

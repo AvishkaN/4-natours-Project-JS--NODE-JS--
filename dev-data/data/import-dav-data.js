@@ -27,7 +27,7 @@ mongoose
     .then(()=>console.log('DB connection successfull !'))
 
 //GET FILE DATA
-const data=JSON.parse(fs.readFileSync(`${__dirname}/tours-simple.json`,'utf-8'));
+const data=JSON.parse(fs.readFileSync(`${__dirname}/tours.json`,'utf-8'));
 
 //IMPORT DATA INTO DB 
 const importData=async ()=>{

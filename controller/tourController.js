@@ -16,7 +16,6 @@ exports.aliasTopTours=(req,res,next)=>{
 
 
 // route controllers  
-
 exports.getAllTours= catchAsync(async(req,res,next) =>{
   
         // exicute the query
@@ -40,30 +39,11 @@ exports.getAllTours= catchAsync(async(req,res,next) =>{
 
 })
 
-// exports. getTour=async(req,res,next)=>{
-//     try{
-    
-//         const tour=await Tour.findById(req.params.id);
-    
-//             res.status(200).json({
-//                 status:'success',
-//                 results:tour.length,
-//                 data:{
-//                     tour:tour,
-//                 }
-    
-//             });
-    
-//     }catch(err){ 
-//         return next(new AppError('No tour found with that ID',404));
-
-//     }
-// };  
 
 exports. getTour=catchAsync(async(req,res,next)=>{
    
     
-        const tour=await Tour.findById(req.params.id);
+        const tour=await Tour.findById(req.params.id).populate('reviews');
     
             res.status(200).json({
                 status:'success',
@@ -92,7 +72,7 @@ exports.createTour=catchAsync(async (req,res,next)=>{
             return next(new AppError('No tour found with that ID'),404);
         }
 
-        res.status(200).json({
+        res.status(201).json({
             status:'success',  
             data:{     
                 tour:newtour 
